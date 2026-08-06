@@ -1,23 +1,28 @@
 # Jenkins CI/CD 实战
 
-本模块主要沉淀 Jenkins 在运维发布场景中的实践，包括 Jenkins Pipeline、Shared Library、Kubernetes Agent、Kaniko 构建镜像、Harbor 推送、ArgoCD 发布等内容。
+本模块沉淀 Jenkins Pipeline、Shared Library、Kubernetes Agent、Kaniko、Harbor 和 GitOps 发布相关的模板与代码说明。
 
-## 建设目标
+## 设计边界
 
-通过本模块沉淀一套适合中小企业内部项目使用的 CI/CD 发布模板，重点解决以下问题：
-
-- Jenkins 如何在 Kubernetes Agent 中运行。
-- Kubernetes 环境没有 docker.sock 时如何使用 Kaniko 构建镜像。
-- 如何将镜像推送到 Harbor。
-- 如何封装 Jenkins Shared Library，减少重复 Jenkinsfile。
-- 如何结合 ArgoCD / Kustomize 实现多环境发布。
-- 如何将 Java、Vue、Django 等不同类型项目统一纳入发布流程。
+- Jenkinsfile 是项目声明与流程编排层，保留 Stage、仓库、镜像、分支环境映射和项目特有配置。
+- `vars/` 是对 Jenkinsfile 暴露的稳定门面，`src/` 保存可测试、可复用的实现类。
+- 构建日志、凭据作用域、输入校验、失败语义和通知行为由 Shared Library 统一。
+- Jenkins 产生制品和修改 GitOps 期望状态；Argo CD 判断同步与 Kubernetes 资源健康。
 
 ## 当前目录
 
 ```text
 jenkins/
-├── java-kaniko-harbor/      # Java 项目 Kaniko 构建与 Harbor 推送模板
-├── vue-kaniko-harbor/       # Vue 项目 Kaniko 构建与 Harbor 推送模板
-├── django-kaniko-harbor/    # Django 项目 Kaniko 构建与 Harbor 推送模板
-└── shared-library/          # Jenkins Shared Library 封装实践
+├── java-kaniko-harbor/      # Java 构建、Kaniko 和 Harbor 说明
+├── vue-kaniko-harbor/       # 前端构建与镜像模板（待补）
+├── django-kaniko-harbor/    # Django 镜像模板（待补）
+└── shared-library/          # Shared Library 分层与入口说明
+```
+
+## 技术手册
+
+- [CI/CD 总览](../docs/ci-cd/README.md)
+- [架构演进与 Pipeline 执行模型](../docs/ci-cd/01-architecture-and-pipeline-model.md)
+- [普通 Java 与单仓多服务流水线](../docs/ci-cd/02-java-pipelines.md)
+- [前端流水线与 Kaniko](../docs/ci-cd/03-frontend-and-kaniko.md)
+- [Kustomize、Argo CD 与并发控制](../docs/ci-cd/04-gitops-kustomize-argocd-locking.md)
