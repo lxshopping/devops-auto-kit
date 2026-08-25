@@ -60,9 +60,22 @@
 - CMDB 与监控、发布系统的关联
 - Django DRF + Vue 运维平台实践
 
+### 6. 统一身份认证与单点登录
+
+目录：`docs/sso/`
+
+- FreeIPA 用户、密码、用户组与 Kerberos
+- Keycloak LDAP Federation、OIDC Client、Token 与 Session
+- Grafana Generic OAuth 和基于用户组的 Viewer / Editor / Admin 映射
+- 用户权限变更、同步、重新登录与故障排查闭环
+- 测试环境与生产环境的架构边界和演进建议
+
+实战手册入口：[FreeIPA + Keycloak 企业级 SSO 单点登录实战](docs/sso/freeipa-keycloak-sso.md)
+
 ## 当前阶段
 
 - 已完成 Jenkins + Shared Library + Kaniko + Kustomize + Argo CD 阶段性知识沉淀。
+- 已完成 FreeIPA + Keycloak + Grafana SSO 实验闭环及 Group-Based RBAC 权限变更验证。
 - 已覆盖普通 Java、Java 单仓多服务和前端三类流水线，以及 12 类真实故障闭环。
 - 后续继续补充生产 promotion、渐进式发布、流水线指标、发布中心和其他运维模块。
 
